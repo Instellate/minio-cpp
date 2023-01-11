@@ -32,6 +32,7 @@ endmacro()
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -lz")
 
 # prohibit in-source-builds
 IF (${CMAKE_BINARY_DIR} STREQUAL ${CMAKE_SOURCE_DIR})
@@ -55,14 +56,14 @@ ELSE(CURL_FOUND)
   MESSAGE(FATAL_ERROR "Could not find the CURL library and development files.")
 ENDIF(CURL_FOUND)
 
-find_package(unofficial-curlpp CONFIG REQUIRED)
-list(APPEND requiredlibs unofficial::curlpp::curlpp)
+find_library(NAMES curlpp REQUIRED)
+list(APPEND requiredlibs curlpp)
 
-find_package(unofficial-inih CONFIG REQUIRED)
-list(APPEND requiredlibs unofficial::inih::inih)
+find_library(NAMES inih REQUIRED)
+list(APPEND requiredlibs inih)
 
 find_package(nlohmann_json CONFIG REQUIRED)
-list(APPEND requiredlibs nlohmann_json::nlohmann_json)
+list(APPEND requiredlibs nlohmann_json)
 
 find_package(pugixml CONFIG REQUIRED)
 list(APPEND requiredlibs pugixml)
